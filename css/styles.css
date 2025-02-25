@@ -3,16 +3,16 @@
 ---------------------------------------- */
 .container h1,
 .container h2 {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+  margin-top: 20px !important;
+  margin-bottom: 20px !important;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2) !important;
 }
 
 /* -------------------------------------
    Container & Navigation Group Positioning (Existing)
 ---------------------------------------- */
 .container.mt-4 {
-  position: relative;
+  position: relative !important;
 }
 .container.mt-4 .group {
   position: absolute;
@@ -55,23 +55,22 @@
   text-align: start;
 }
 .carousel-caption h3 {
-  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.7);
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.7) !important;
 }
 .carousel-caption p {
-  text-shadow: 0 2px 15px rgba(0, 0, 0, 0.7);
+  text-shadow: 0 2px 15px rgba(0, 0, 0, 0.7) !important;
 }
 
 /* -------------------------------------
    Card Styling & Hover Animations
 ---------------------------------------- */
 .card {
-  border: none;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: none !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
   animation: fadeIn 0.5s ease-in-out;
 }
 .card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.5) !important;
 }
 .card-img-top {
   border-radius: 30px !important;
@@ -84,10 +83,10 @@
    Button Enhancements
 ---------------------------------------- */
 .btn {
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease !important;
 }
 .btn:hover {
-  transform: scale(1.05);
+  transform: scale(1.05) !important;
 }
 
 /* -------------------------------------
@@ -95,12 +94,12 @@
 ---------------------------------------- */
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
-  transition: transform 0.3s ease;
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5)) !important;
+  transition: transform 0.3s ease 0 !important;
 }
 .carousel-control-prev-icon:hover,
 .carousel-control-next-icon:hover {
-  transform: scale(1.1);
+  transform: scale(1.1) !important;
 }
 
 /* -------------------------------------
@@ -109,9 +108,9 @@
 input:focus,
 select:focus,
 textarea:focus {
-  box-shadow: 0 0 10px rgba(255, 200, 0, 0.5);
-  border-color: #ffc107;
-  outline: none;
+  box-shadow: 0 0 10px rgba(255, 200, 0, 0.5) !important;
+  border-color: #ffc107 !important;
+  outline: none !important;
 }
 
 /* -------------------------------------
@@ -119,10 +118,10 @@ textarea:focus {
 ---------------------------------------- */
 @keyframes fadeIn {
   from {
-    opacity: 0;
+    opacity: 0 !important;
   }
   to {
-    opacity: 1;
+    opacity: 1 !important;
   }
 }
 
@@ -131,24 +130,19 @@ textarea:focus {
    - Global transition on links for smooth hover effects.
    - Navbar brand color transition.
 ---------------------------------------- */
-a {
-  transition: color 0.3s ease;
+a:not(.btn) {
+  transition: color 0.3s ease !important;
 }
-a:hover {
-  color: #ffc107;
+a:hover:not(.btn) {
+  color: #ffc107 !important;
 }
 .navbar-brand {
-  transition: color 0.3s ease;
+  transition: color 0.3s ease !important;
 }
 .navbar-brand:hover {
-  color: #ffc107;
+  color: #ffc107 !important;
 }
 
-.container h1,
-.container h2 {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
 .container.mt-4 {
   position: relative;
 }
