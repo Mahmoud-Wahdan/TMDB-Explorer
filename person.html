@@ -9,72 +9,11 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/all.min.css" />
   </head>
   <body class="bg-dark text-white">
     <!-- Navbar (يمكنك تعديلها حسب الحاجة) -->
-    <nav class="navbar navbar-expand-lg bg-transparent navbar-dark">
-      <div class="container-fluid">
-        <!-- Logo -->
-        <a class="navbar-brand fw-bold" href="index.html">TMDB Explorer</a>
-
-        <!-- زر التوجّل (Toggle Button) -->
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <!-- عناصر القائمة -->
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="login.html" id="login-link">Login</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="signup.html" id="register-link"
-                >Register</a
-              >
-            </li>
-            <li class="nav-item" id="profile-link">
-              <a class="nav-link" href="profile.html">Profile</a>
-            </li>
-          </ul>
-
-          <!-- نموذج البحث (Search Form) -->
-          <form
-            class="d-flex mt-3 mt-lg-0"
-            role="search"
-            id="search-form"
-            method="get"
-            action="search.html"
-          >
-            <input
-              class="form-control me-2"
-              type="search"
-              placeholder="Search"
-              id="search-input"
-              name="query"
-              aria-label="Search"
-            />
-            <select id="type" name="type" class="form-select me-2">
-              <option value="movie" selected>Movies</option>
-              <option value="series">Series</option>
-              <option value="actor">Actors</option>
-              <option value="director">Directors</option>
-            </select>
-            <button class="btn btn-outline-warning" type="submit">
-              Search
-            </button>
-          </form>
-        </div>
-      </div>
-    </nav>
     <!-- تفاصيل الشخص -->
     <div class="container Homepage mt-4">
       <div id="person-details"></div>

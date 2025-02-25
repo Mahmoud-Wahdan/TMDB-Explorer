@@ -1,3 +1,4 @@
+//Api بتاع الموقع اللي هسخدمه علشان اجيب البيانات
 const apiKey = "5ea8225a17e81dc365a6c046475ae6bb";
 
 document.addEventListener("DOMContentLoaded", async function () {
@@ -79,11 +80,11 @@ async function renderHeroSlider() {
 // دالة عرض الأقسام (Popular/Top Rated)
 // في حالة الشاشات الصغيرة (mobile) يتم بناء Grid Layout مع 4 كروت وبالتعديلات المطلوبة
 // وعلى الشاشات الكبيرة (desktop) يتم عرض Carousel كما كانت سابقًا (مع 4 كروت لكل شريحة)
-  async function renderSection(type, category, containerId) {
-    const container = document.getElementById(containerId);
+async function renderSection(type, category, containerId) {
+  const container = document.getElementById(containerId);
 
-    // عرض Loading Cards مؤقتاً (عدد 4)
-    container.innerHTML = `
+  // عرض Loading Cards مؤقتاً (عدد 4)
+  container.innerHTML = `
       <div class="row">
         ${Array(4)
           .fill(
@@ -112,22 +113,22 @@ async function renderHeroSlider() {
           .join("")}
       </div>
     `;
-    // جلب البيانات من API
-    const items = await fetchData(type, category);
-    container.innerHTML = "";
+  // جلب البيانات من API
+  const items = await fetchData(type, category);
+  container.innerHTML = "";
 
-    if (window.innerWidth < 768) {
-      // شاشة الموبايل: بناء Grid Layout مع كل الكروت (تصميم أنيق)
-      let gridHtml = '<div class="row justify-content-center">';
-      items.forEach((item) => {
-        gridHtml += `
+  if (window.innerWidth < 768) {
+    // شاشة الموبايل: بناء Grid Layout مع كل الكروت (تصميم أنيق)
+    let gridHtml = '<div class="row justify-content-center">';
+    items.forEach((item) => {
+      gridHtml += `
           <div class="col-12 col-sm-6 col mb-3">
             <div class="card h-100 shadow rounded bg-black text-white">
               <img src="https://image.tmdb.org/t/p/w500${
                 item.poster_path
               }" class="card-img-top rounded p-4" alt="${
-          item.title || item.name
-        }">
+        item.title || item.name
+      }">
               <div class="card-body text-center">
                 <h5 class="card-title mb-3">${item.title || item.name}</h5>
                 <p class="card-text text-start">
@@ -144,17 +145,17 @@ async function renderHeroSlider() {
             </div>
           </div>
         `;
-      });
-      gridHtml += "</div>";
-      container.innerHTML = gridHtml;
-    } else {
-      // على التابلت والشاشات الكبيرة: بناء Carousel
-      // تحديد عدد الكروت لكل شريحة بناءً على عرض الشاشة:
-      // إذا كانت الشاشة أقل من 992px (تابلت) -> 3 كروت، وإلا -> 4 كروت.
-      let chunkSize = window.innerWidth < 992 ? 3 : 4;
-      for (let i = 0; i < items.length; i += chunkSize) {
-        const chunk = items.slice(i, i + chunkSize);
-        container.innerHTML += `
+    });
+    gridHtml += "</div>";
+    container.innerHTML = gridHtml;
+  } else {
+    // على التابلت والشاشات الكبيرة: بناء Carousel
+    // تحديد عدد الكروت لكل شريحة بناءً على عرض الشاشة:
+    // إذا كانت الشاشة أقل من 992px (تابلت) -> 3 كروت، وإلا -> 4 كروت.
+    let chunkSize = window.innerWidth < 992 ? 3 : 4;
+    for (let i = 0; i < items.length; i += chunkSize) {
+      const chunk = items.slice(i, i + chunkSize);
+      container.innerHTML += `
           <div class="carousel-item ${i === 0 ? "active" : ""}">
             <div class="row text-center justify-content-center align-items-center">
               ${chunk
@@ -196,9 +197,9 @@ async function renderHeroSlider() {
             </div>
           </div>
         `;
-      }
     }
   }
+}
 
 // دالة عرض التصنيفات (Genres)
 function renderGenres() {
@@ -283,11 +284,60 @@ function displayResults(results, type) {
             ? `series.html?id=${item.id}`
             : "#"
         }" class="btn btn-primary">View Details</a>
-      </div>
-    `;
+            </div>
+            `;
     resultsContainer.appendChild(card);
   });
 }
+document.addEventListener("DOMContentLoaded", () => {
+  const navbarHTML = `
+            <nav class="navbar navbar-expand-lg bg-transparent navbar-dark" id="main-navbar">
+              <div class="container-fluid">
+                <!-- Logo -->
+                <a class="navbar-brand fw-bold" href="index.html" id="navbar-logo">TMDB Explorer</a>
+        
+                <!-- Toggle Button -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                  aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+        
+                <!-- Navigation Items -->
+                <div class="collapse navbar-collapse" id="navbarNav">
+                  <ul class="navbar-nav ms-auto" id="navbar-links">
+                    <li class="nav-item" id="login-link-item">
+                      <a class="nav-link" href="login.html" id="login-link">Login</a>
+                    </li>
+                    <li class="nav-item" id="register-link-item">
+                      <a class="nav-link" href="signup.html" id="register-link">Register</a>
+                    </li>
+                    <li class="nav-item" id="profile-link-item" style="display: none;">
+                      <a class="nav-link" href="profile.html" id="profile-link">Profile</a>
+                    </li>
+                    <li class="nav-item" id="logout-link-item" style="display: none;">
+                      <a class="nav-link" href="#" id="logout-link" onclick="logoutUser()">Logout</a>
+                    </li>
+                  </ul>
+        
+                  <!-- Search Form -->
+                  <form class="d-flex mt-3 mt-lg-0" role="search" id="search-form" method="get" action="search.html">
+                    <input class="form-control me-2" type="search" placeholder="Search" id="search-input" name="query" aria-label="Search" />
+                    <select id="type" name="type" class="form-select me-2">
+                      <option value="movie" selected>Movies</option>
+                      <option value="series">Series</option>
+                      <option value="actor">Actors</option>
+                      <option value="director">Directors</option>
+                    </select>
+                    <button class="btn btn-outline-warning" type="submit">Search</button>
+                  </form>
+                </div>
+              </div>
+            </nav>
+          `;
+
+  // نقوم بإدراج الـ Navbar في أعلى الصفحة
+  document.body.insertAdjacentHTML("afterbegin", navbarHTML);
+});
 
 // دالة إخفاء الـ hero section وعناصر الـ carousel على شاشات الموبايل
 function disableMobileHeroAndCarousel() {
@@ -306,4 +356,38 @@ function disableMobileHeroAndCarousel() {
         element.style.display = "none";
       });
   }
+}
+function getLoggedInUser() {
+  return JSON.parse(localStorage.getItem("loggedInUser"));
+}
+document.addEventListener("DOMContentLoaded", () => {
+  const loggedInUser = getLoggedInUser();
+
+  if (loggedInUser) {
+    // إخفاء روابط الدخول والتسجيل
+    document.getElementById("login-link-item").style.display = "none";
+    document.getElementById("register-link-item").style.display = "none";
+
+    // إظهار روابط الملف الشخصي والخروج
+    document.getElementById("profile-link-item").style.display = "block";
+    document.getElementById("logout-link-item").style.display = "block";
+
+    // تحديث نص الرابط الخاص بالملف الشخصي ليظهر اسم المستخدم
+    const profileLink = document.querySelector("#profile-link-item a");
+    if (profileLink) {
+      profileLink.textContent = loggedInUser.name;
+    }
+  } else {
+    // إذا لم يكن هناك مستخدم مسجل، إظهار روابط الدخول والتسجيل
+    document.getElementById("login-link-item").style.display = "block";
+    document.getElementById("register-link-item").style.display = "block";
+
+    // إخفاء روابط الملف الشخصي والخروج
+    document.getElementById("profile-link-item").style.display = "none";
+    document.getElementById("logout-link-item").style.display = "none";
+  }
+});
+function logoutUser() {
+  localStorage.removeItem("loggedInUser");
+  window.location.href = "index.html";
 }
