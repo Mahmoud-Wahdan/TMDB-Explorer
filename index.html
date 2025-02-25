@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TMDB Explorer - Home</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/all.min.css" />
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body class="bg-dark text-white">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-transparent navbar-dark">
+      <div class="container-fluid">
+        <!-- Logo -->
+        <a class="navbar-brand fw-bold" href="index.html">TMDB Explorer</a>
+
+        <!-- زر التوجّل (Toggle Button) -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- عناصر القائمة -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="login.html" id="login-link">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="signup.html" id="register-link"
+                >Register</a
+              >
+            </li>
+            <li class="nav-item" id="profile-link">
+              <a class="nav-link" href="profile.html">Profile</a>
+            </li>
+          </ul>
+
+          <!-- نموذج البحث (Search Form) -->
+          <form
+            class="d-flex mt-3 mt-lg-0"
+            role="search"
+            id="search-form"
+            method="get"
+            action="search.html"
+          >
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="Search"
+              id="search-input"
+              name="query"
+              aria-label="Search"
+            />
+            <select id="type" name="type" class="form-select me-2">
+              <option value="movie" selected>Movies</option>
+              <option value="series">Series</option>
+              <option value="actor">Actors</option>
+              <option value="director">Directors</option>
+            </select>
+            <button class="btn btn-outline-warning" type="submit">
+              Search
+            </button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div id="main-content">
+      <!-- Genres Section -->
+      <div class="container my-4" id="genres-container">
+        <h2 class="cate">Categories</h2>
+        <div id="genres" class="d-flex flex-wrap gap-2"></div>
+      </div>
+
+      <!-- Hero Slider -->
+      <div id="hero-slider" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators" id="hero-indicators"></div>
+        <div class="carousel-inner roun" id="hero-items"></div>
+      </div>
+
+      <!-- Popular Movies Section -->
+      <div class="container Homepage mt-4">
+        <h2 class="popularh1">Popular Movies</h2>
+        <div
+          id="popular-movies"
+          class="carousel slide d-flex"
+          data-bs-ride="carousel"
+        >
+          <div class="carousel-inner" id="popular-movies-items"></div>
+          <div class="mt-2 group">
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#popular-movies"
+              data-bs-slide="prev"
+            >
+              <span
+                class="rounded-circle bg-danger carousel-control-prev-icon"
+              ></span>
+            </button>
+            <button
+              class="rounded-circle carousel-control-next"
+              type="button"
+              data-bs-target="#popular-movies"
+              data-bs-slide="next"
+            >
+              <span
+                class="rounded-circle bg-danger carousel-control-next-icon"
+              ></span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Top Rated Movies Section -->
+      <div class="container Homepage mt-4">
+        <h2 class="popularh1">Top Rated Movies</h2>
+        <div id="rated-movies" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner" id="rated-movies-items"></div>
+          <div class="group">
+            <button
+              class="btn btn-secondary carousel-control-prev"
+              type="button"
+              data-bs-target="#rated-movies"
+              data-bs-slide="prev"
+            >
+              <span
+                class="rounded-circle bg-danger carousel-control-prev-icon"
+              ></span>
+            </button>
+            <button
+              class="btn btn-secondary carousel-control-next"
+              type="button"
+              data-bs-target="#rated-movies"
+              data-bs-slide="next"
+            >
+              <span
+                class="rounded-circle bg-danger carousel-control-next-icon"
+              ></span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Popular Series Section -->
+      <div class="container Homepage mt-4">
+        <h2 class="popularh1">Popular Series</h2>
+        <div id="popular-series" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner" id="popular-series-items"></div>
+          <div class="group">
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#popular-series"
+              data-bs-slide="prev"
+            >
+              <span
+                class="rounded-circle bg-danger carousel-control-prev-icon"
+              ></span>
+            </button>
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-bs-target="#popular-series"
+              data-bs-slide="next"
+            >
+              <span
+                class="rounded-circle bg-danger carousel-control-next-icon"
+              ></span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Top Rated Series Section -->
+      <div class="container Homepage mt-4 mb-5">
+        <h2 class="popularh1">Top Rated Series</h2>
+        <div id="rated-series" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner" id="rated-series-items"></div>
+          <div class="group">
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#rated-series"
+              data-bs-slide="prev"
+            >
+              <span
+                class="rounded-circle bg-danger carousel-control-prev-icon"
+              ></span>
+            </button>
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-bs-target="#rated-series"
+              data-bs-slide="next"
+            >
+              <span
+                class="rounded-circle bg-danger carousel-control-next-icon"
+              ></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Search Results Container (مخفية افتراضيًا) -->
+
+    <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,210 @@
+/* -------------------------------------
+   Global Typography & Spacing Enhancements
+---------------------------------------- */
+.container h1,
+.container h2 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* -------------------------------------
+   Container & Navigation Group Positioning (Existing)
+---------------------------------------- */
+.container.mt-4 {
+  position: relative;
+}
+.container.mt-4 .group {
+  position: absolute;
+  top: 50%;
+  /* Combining transforms */
+  transform: translate(-50%, -50%);
+  width: 15%;
+}
+.container.mt-4.Homepage button {
+  margin: 0 0;
+}
+@media (min-width: 768px) {
+  .container.mt-4.Homepage button {
+    margin: 0 -315px;
+  }
+}
+@media (min-width: 992px) {
+  .container.mt-4.Homepage button {
+    margin: 0 -425px;
+  }
+}
+@media (min-width: 1440px) {
+  .container.mt-4.Homepage button {
+    margin: 0 -585px;
+  }
+}
+
+/* -------------------------------------
+   Carousel Caption Enhancements
+---------------------------------------- */
+.carousel-caption {
+  top: 50%;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  transform: translateY(-50%);
+  width: 50%;
+  color: white;
+  left: 40px;
+  text-align: start;
+}
+.carousel-caption h3 {
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.7);
+}
+.carousel-caption p {
+  text-shadow: 0 2px 15px rgba(0, 0, 0, 0.7);
+}
+
+/* -------------------------------------
+   Card Styling & Hover Animations
+---------------------------------------- */
+.card {
+  border: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeIn 0.5s ease-in-out;
+}
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+}
+.card-img-top {
+  border-radius: 30px !important;
+}
+.card.cast {
+  height: 100% !important;
+}
+
+/* -------------------------------------
+   Button Enhancements
+---------------------------------------- */
+.btn {
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.btn:hover {
+  transform: scale(1.05);
+}
+
+/* -------------------------------------
+   Carousel Control Enhancements
+---------------------------------------- */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
+  transition: transform 0.3s ease;
+}
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+  transform: scale(1.1);
+}
+
+/* -------------------------------------
+   Input Focus Enhancements for Search Form
+---------------------------------------- */
+input:focus,
+select:focus,
+textarea:focus {
+  box-shadow: 0 0 10px rgba(255, 200, 0, 0.5);
+  border-color: #ffc107;
+  outline: none;
+}
+
+/* -------------------------------------
+   Keyframes for Fade In Animation
+---------------------------------------- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* -------------------------------------
+   Additional UI/UX Enhancements:
+   - Global transition on links for smooth hover effects.
+   - Navbar brand color transition.
+---------------------------------------- */
+a {
+  transition: color 0.3s ease;
+}
+a:hover {
+  color: #ffc107;
+}
+.navbar-brand {
+  transition: color 0.3s ease;
+}
+.navbar-brand:hover {
+  color: #ffc107;
+}
+
+.container h1,
+.container h2 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.container.mt-4 {
+  position: relative;
+}
+.container.mt-4 .group {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.container.mt-4.Homepage button {
+  margin: 0 0;
+}
+@media (min-width: 768px) {
+  .container.mt-4.Homepage button {
+    margin: 0 -315px;
+  }
+}
+@media (min-width: 992px) {
+  .container.mt-4.Homepage button {
+    margin: 0 -425px;
+  }
+}
+@media (min-width: 1440px) {
+  .container.mt-4.Homepage button {
+    margin: 0 -585px;
+  }
+}
+.carousel-caption {
+  top: 50%;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50%;
+  color: white;
+  left: 40px;
+  text-align: start;
+}
+.carousel-caption h3 {
+  text-shadow: 0 2px 0 rgba(0, 0, 0);
+}
+.carousel-caption p {
+  text-shadow: 0 2px 15px rgba(0, 0, 0);
+}
+@media (min-width: 768px) {
+  .card {
+    height: 55rem !important;
+  }
+}
+
+.card-img-top {
+  border-radius: 30px !important;
+}
+.card.cast {
+  height: 100% !important;
+}
