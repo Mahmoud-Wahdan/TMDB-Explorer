@@ -52,13 +52,11 @@
   width: 50%;
   color: white;
   left: 40px;
-  text-align: start;
+  text-align: center;
 }
+.carousel-caption p,
 .carousel-caption h3 {
-  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.7) !important;
-}
-.carousel-caption p {
-  text-shadow: 0 2px 15px rgba(0, 0, 0, 0.7) !important;
+  text-shadow: 0px 5px 4px rgba(0, 0, 0, 0.7) !important;
 }
 
 /* -------------------------------------
@@ -67,10 +65,13 @@
 .card {
   border: none !important;
   transition: transform 0.3s ease, box-shadow 0.3s ease !important;
-  animation: fadeIn 0.5s ease-in-out;
+  animation: fadeIn 0.5s ease-in-out !important;
+  transform: perspective(1000px) rotateY(0deg) !important;
 }
-.card:hover {
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.5) !important;
+
+.card.main:hover {
+  transform: translateY(20px) !important;
+  box-shadow: 0px 0px 6px 4px rgba(255, 0, 0, 0.5) !important;
 }
 .card-img-top {
   border-radius: 30px !important;
@@ -79,6 +80,10 @@
   height: 100% !important;
 }
 
+.card.categ:hover,
+.card.cast:hover {
+  box-shadow: 0px 0px 6px 4px rgba(255, 0, 0, 0.5) !important;
+}
 /* -------------------------------------
    Button Enhancements
 ---------------------------------------- */
@@ -172,33 +177,30 @@ a:hover:not(.btn) {
     margin: 0 -585px;
   }
 }
-.carousel-caption {
-  top: 50%;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 50%;
-  color: white;
-  left: 40px;
-  text-align: start;
-}
-.carousel-caption h3 {
-  text-shadow: 0 2px 0 rgba(0, 0, 0);
-}
-.carousel-caption p {
-  text-shadow: 0 2px 15px rgba(0, 0, 0);
-}
 @media (min-width: 768px) {
   .card {
-    height: 55rem !important;
+    height: 46rem !important;
   }
 }
-
-.card-img-top {
-  border-radius: 30px !important;
+.card.cast img {
+  border-radius: 20px !important;
 }
-.card.cast {
-  height: 100% !important;
+
+.card.categ {
+  height: 55rem !important;
+}
+.card.search {
+  justify-content: center;
+  align-items: center;
+  height: 55rem !important;
+}
+.star {
+  transition: transform 0.3s ease, color 0.3s ease;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.star.hover {
+  transform: perspective(1000px) translateZ(10px);
+  color: #ffc107;
 }
