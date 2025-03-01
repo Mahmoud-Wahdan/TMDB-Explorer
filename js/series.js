@@ -26,7 +26,7 @@ function addToFavorites(item) {
     showNotification("Already in favorites!", "info");
   }
 }
-
+// لدالة تقييم المسلسل
 function rateContent(itemId, rating, title, seriesData) {
   const user = getLoggedInUser();
   if (!user) {
@@ -39,8 +39,15 @@ function rateContent(itemId, rating, title, seriesData) {
     existingRating.rating = rating;
     existingRating.title = title;
     existingRating.seriesData = seriesData;
+    existingRating.type = "series"; // تعيين نوع المسلسل
   } else {
-    user.ratings.push({ id: itemId, rating, title, seriesData });
+    user.ratings.push({
+      id: itemId,
+      rating,
+      title,
+      seriesData,
+      type: "series",
+    });
   }
   updateUser(user);
   showNotification("Rating submitted!", "success");
@@ -180,6 +187,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         title: series.name,
         overview: series.overview,
         vote_average: series.vote_average,
+        type: "series",
       });
     });
   });

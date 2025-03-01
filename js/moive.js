@@ -27,7 +27,7 @@ function addToFavorites(item) {
     showNotification("Already in favorites!", "warning");
   }
 }
-
+// لدالة تقييم الفيلم
 function rateContent(itemId, rating, title, movieData) {
   const user = getLoggedInUser();
   if (!user) {
@@ -40,8 +40,9 @@ function rateContent(itemId, rating, title, movieData) {
     existingRating.rating = rating;
     existingRating.title = title;
     existingRating.movieData = movieData;
+    existingRating.type = "movie"; // تعيين نوع الفيلم
   } else {
-    user.ratings.push({ id: itemId, rating, title, movieData });
+    user.ratings.push({ id: itemId, rating, title, movieData, type: "movie" });
   }
   updateUser(user);
   showNotification("Rating submitted!", "success");
@@ -105,10 +106,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         <p><strong>Duration:</strong> ${movie.runtime} minutes</p>
         <p><strong>Overview:</strong> ${movie.overview}</p>
         <p><strong>Rating:</strong> ${movie.vote_average}</p>
-        <div class="row mb-3">
+        <div class="row mb-3 justify-content-between align-items-center">
         <div class="col my-3">
         <span class="ms-3">Add to Favorites:</span>
-          <button id="fav-btn" class="btn btn-outline-danger">Add to Favorites</button>
+          <button id="fav-btn" class=" ms-3 btn btn-outline-danger">Add to Favorites</button>
           </div>
           <div class="col-md-6">
           <span class="ms-3">Rate:</span>
@@ -177,6 +178,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         title: movie.title,
         overview: movie.overview,
         vote_average: movie.vote_average,
+        type: "movie",
       });
     });
   });

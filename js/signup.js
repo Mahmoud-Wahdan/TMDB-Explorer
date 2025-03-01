@@ -66,15 +66,17 @@ document
   .addEventListener("click", function () {
     const passwordInput = document.getElementById("signup-password");
     const toggleIcon = document.getElementById("toggle-password-icon");
-
+    const before = document.querySelector([(ey = "eyeball")]);
     if (passwordInput.type === "password") {
       passwordInput.type = "text";
       toggleIcon.classList.remove("fa-eye-slash");
       toggleIcon.classList.add("fa-eye");
+      toggleIcon.classList.add("sosa");
     } else {
       passwordInput.type = "password";
       toggleIcon.classList.remove("fa-eye");
       toggleIcon.classList.add("fa-eye-slash");
+      toggleIcon.classList.remove("sosa");
     }
   });
 document.addEventListener("DOMContentLoaded", () => {

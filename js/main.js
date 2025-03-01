@@ -3,6 +3,7 @@ const apiKey = "5ea8225a17e81dc365a6c046475ae6bb";
 
 document.addEventListener("DOMContentLoaded", async function () {
   // عرض الـ Hero Slider فقط على الشاشات الكبيرة (desktop)
+
   if (window.innerWidth >= 768) {
     await renderHeroSlider();
   }
@@ -31,12 +32,16 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 // دالة جلب البيانات من API
 async function fetchData(type, category) {
-  const url = `https://api.themoviedb.org/3/${type}/${category}?api_key=${apiKey}`;
-  const response = await fetch(url);
-  const data = await response.json();
-  return data.results;
+  try {
+    const url = `https://api.themoviedb.org/3/${type}/${category}?api_key=${apiKey}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    return data.results;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return [];
+  }
 }
-
 // دالة عرض الـ Hero Slider
 async function renderHeroSlider() {
   const movies = await fetchData("movie", "popular");
@@ -60,7 +65,7 @@ async function renderHeroSlider() {
           <p class="fw-normal">${movie.overview}</p>
           <a href="movie.html?id=${
             movie.id
-          }" class="btn btn-outline-danger">View Details</a>
+          }" class="btn btn-danger">View Details</a>
         </div>
       </div>
     `
@@ -123,7 +128,7 @@ async function renderSection(type, category, containerId) {
     items.forEach((item) => {
       gridHtml += `
           <div class="col-12 col-sm-6 col mb-3">
-            <div class="card h-100 shadow rounded bg-black text-white">
+            <div class="card main h-100 shadow rounded bg-black text-white">
               <img src="https://image.tmdb.org/t/p/w500${
                 item.poster_path
               }" class="card-img-top rounded p-4" alt="${
@@ -162,7 +167,7 @@ async function renderSection(type, category, containerId) {
                 .map(
                   (item) => `
                     <div class="col mb-3">
-                      <div class="card rounded shadow bg-black text-white mb-3">
+                      <div class="card main rounded shadow bg-black text-white mb-3">
                         <img src="https://image.tmdb.org/t/p/w500${
                           item.poster_path
                         }" class="card-img-top rounded p-4" alt="${
@@ -265,7 +270,7 @@ function displayResults(results, type) {
   }
   results.forEach((item) => {
     const card = document.createElement("div");
-    card.className = "card mb-3 col-md-3";
+    card.className = "card main mb-3 col-md-3";
     card.innerHTML = `
       <img src="https://image.tmdb.org/t/p/w500${
         item.poster_path || item.profile_path
@@ -387,7 +392,3 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("logout-link-item").style.display = "none";
   }
 });
-function logoutUser() {
-  localStorage.removeItem("loggedInUser");
-  window.location.href = "index.html";
-}

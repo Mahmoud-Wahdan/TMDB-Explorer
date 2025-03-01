@@ -2,10 +2,14 @@ const apiKey = "5ea8225a17e81dc365a6c046475ae6bb";
 
 // دالة لاسترجاع المحتوى حسب التصنيف
 async function fetchByGenre(type, genreId) {
-  const url = `https://api.themoviedb.org/3/discover/${type}?api_key=${apiKey}&with_genres=${genreId}`;
-  const response = await fetch(url);
-  const data = await response.json();
-  return data.results || [];
+  try {
+    const url = `https://api.themoviedb.org/3/discover/${type}?api_key=${apiKey}&with_genres=${genreId}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    return data.results || [];
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
 }
 
 window.onload = async () => {
@@ -51,7 +55,7 @@ function displayCategoryResults(results, typeParam) {
   results.forEach((item) => {
     resultsContainer.innerHTML += `
       <div class="col-12 col-sm-6 col-md-4 mb-3 text-center">
-        <div class="card h-100 shadow rounded bg-black text-white">
+        <div class="card categ shadow rounded bg-black text-white">
           <img src="https://image.tmdb.org/t/p/w500${
             item.poster_path
           }" class="card-img-top rounded p-4" alt="${item.title || item.name}">

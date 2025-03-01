@@ -51,7 +51,7 @@ function displayResults(results, type) {
 
     const cardHTML = `
       <div class="col-12 col-sm-6 col-md-4 mb-3">
-        <div class="card h-100 shadow rounded bg-black text-white">
+        <div class="card search shadow rounded bg-black text-white">
           <img src="https://image.tmdb.org/t/p/w500${imagePath}" class="card-img-top rounded p-4" alt="${title}">
           <div class="card-body text-center">
             <h5 class="card-title mb-3">${title}</h5>

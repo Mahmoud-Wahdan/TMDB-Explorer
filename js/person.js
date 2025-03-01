@@ -122,7 +122,7 @@ function renderWorks(works, containerId) {
         .fill(
           `
           <div class="col-md-3">
-            <div class="card" aria-hidden="true">
+            <div class="card main" aria-hidden="true">
               <svg class="bd-placeholder-img card-img-top" width="100%" height="180"
                    xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Loading"
                    preserveAspectRatio="xMidYMid slice" focusable="false">
@@ -167,7 +167,7 @@ function renderWorks(works, containerId) {
         }
         gridHtml += `
           <div class="col-12 col-sm-6 col-md-4 mb-3">
-            <div class="card shadow rounded bg-black text-white">
+            <div class="card main shadow rounded bg-black text-white">
               <img src="https://image.tmdb.org/t/p/w500${imagePath}" class="card-img-top rounded p-4" alt="${title}">
               <div class="card-body text-center">
                 <h5 class="card-title mb-3">${title}</h5>
@@ -215,7 +215,7 @@ function renderWorks(works, containerId) {
           }
           carouselHTML += `
             <div class="col mb-3">
-              <div class="card  rounded shadow bg-black text-white mb-3 h-100">
+              <div class="card main  rounded shadow bg-black text-white mb-3 h-100">
                 <img src="https://image.tmdb.org/t/p/w500${imagePath}" class="card-img-top rounded p-4" alt="${title}">
                 <div class="card-body text-center">
                   <h5 class="card-title mb-3">${title}</h5>

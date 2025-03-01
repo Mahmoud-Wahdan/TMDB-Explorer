@@ -11,12 +11,12 @@ document.addEventListener("DOMContentLoaded", () => {
       (u) => u.email === email && u.password === password
     );
     if (user) {
-      alert("Login successful!");
+      showNotification("Login successful!", "success");
       // تخزين بيانات المستخدم المسجل الدخول
       localStorage.setItem("loggedInUser", JSON.stringify(user));
       window.location.href = "index.html";
     } else {
-      alert("Invalid email or password!");
+      showNotification("Invalid email or password!", "danger");
     }
   });
 });
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
     </nav>
   `;
-  
+
   // نقوم بإدراج الـ Navbar في أعلى الصفحة
   document.body.insertAdjacentHTML("afterbegin", navbarHTML);
 });
@@ -102,4 +102,18 @@ document.addEventListener("DOMContentLoaded", () => {
 function logoutUser() {
   localStorage.removeItem("loggedInUser");
   window.location.href = "index.html";
+}
+
+function showNotification(message, type = "success") {
+  const notification = document.createElement("div");
+  notification.className = `alert alert-${type}`;
+  notification.textContent = message;
+  notification.style.position = "fixed";
+  notification.style.top = "20px";
+  notification.style.right = "20px";
+  notification.style.zIndex = "9999";
+  document.body.appendChild(notification);
+  setTimeout(() => {
+    notification.remove();
+  }, 3000);
 }

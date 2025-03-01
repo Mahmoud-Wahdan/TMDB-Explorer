@@ -33,7 +33,7 @@ function displayProfile() {
       .map((item) => {
         return `
         <div class="col-12 col-sm-6 col-md-4 mb-3">
-          <div class="card text-center justify-content-center align-items-center h-100 shadow rounded bg-black text-white">
+          <div class="card categ text-center justify-content-center align-items-center h-100 shadow rounded bg-black text-white">
             <img src="https://image.tmdb.org/t/p/w500${item.poster_path}" 
                  class="card-img-top rounded p-4" alt="${
                    item.title || item.name
@@ -83,7 +83,7 @@ function displayProfile() {
           }
           return `
           <div class="col-12 col-sm-6 col-md-4 mb-3">
-            <div class="card text-center justify-content-center align-items-center h-100 shadow rounded bg-black text-white">
+            <div class="card categ text-center justify-content-center align-items-center h-100 shadow rounded bg-black text-white">
               <img src="https://image.tmdb.org/t/p/w500${itemData.poster_path}" 
                    class="card-img-top rounded p-4" alt="${
                      itemData.title || itemData.name
@@ -105,9 +105,7 @@ function displayProfile() {
                   r.rating
                 } / 5</span>
                 <a href="${
-                  itemData.type === "movie"
-                    ? "movie.html?id="
-                    : "series.html?id="
+                  r.type === "movie" ? "movie.html?id=" : "series.html?id="
                 }${r.id}" class="btn btn-outline-danger ms-2">View Details</a>
               </div>
             </div>
