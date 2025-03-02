@@ -3,6 +3,7 @@ const apiKey = "5ea8225a17e81dc365a6c046475ae6bb";
 
 document.addEventListener("DOMContentLoaded", async function () {
   // عرض الـ Hero Slider فقط على الشاشات الكبيرة (desktop)
+  
 
   if (window.innerWidth >= 768) {
     await renderHeroSlider();
@@ -60,7 +61,7 @@ async function renderHeroSlider() {
         <img src="https://image.tmdb.org/t/p/original${
           movie.backdrop_path
         }" class="d-block w-100" alt="${movie.title}">
-        <div class="fw-bold text-white-emphasis carousel-caption d-none d-md-flex">
+        <div class="fw-bold text-white carousel-caption d-none d-md-flex">
           <h3>${movie.title}</h3>
           <p class="fw-normal">${movie.overview}</p>
           <a href="movie.html?id=${
@@ -145,7 +146,7 @@ async function renderSection(type, category, containerId) {
                 </p>
                 <a href="${
                   type === "movie" ? "movie.html?id=" : "series.html?id="
-                }${item.id}" class="btn btn-outline-danger">View Details</a>
+                }${item.id}" class="m-3 btn btn-outline-danger">View Details</a>
               </div>
             </div>
           </div>
@@ -192,7 +193,7 @@ async function renderSection(type, category, containerId) {
                               : "series.html?id="
                           }${
                     item.id
-                  }" class="btn btn-outline-danger">View Details</a>
+                  }" class="btn m-3 btn-outline-danger">View Details</a>
                         </div>
                       </div>
                     </div>
@@ -288,61 +289,12 @@ function displayResults(results, type) {
             : type === "series"
             ? `series.html?id=${item.id}`
             : "#"
-        }" class="btn btn-primary">View Details</a>
+        }" class="btn btn-primary m-3">View Details</a>
             </div>
             `;
     resultsContainer.appendChild(card);
   });
 }
-document.addEventListener("DOMContentLoaded", () => {
-  const navbarHTML = `
-            <nav class="navbar navbar-expand-lg bg-transparent navbar-dark" id="main-navbar">
-              <div class="container-fluid">
-                <!-- Logo -->
-                <a class="navbar-brand fw-bold" href="index.html" id="navbar-logo">TMDB Explorer</a>
-        
-                <!-- Toggle Button -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                  aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-        
-                <!-- Navigation Items -->
-                <div class="collapse navbar-collapse" id="navbarNav">
-                  <ul class="navbar-nav ms-auto" id="navbar-links">
-                    <li class="nav-item" id="login-link-item">
-                      <a class="nav-link" href="login.html" id="login-link">Login</a>
-                    </li>
-                    <li class="nav-item" id="register-link-item">
-                      <a class="nav-link" href="signup.html" id="register-link">Register</a>
-                    </li>
-                    <li class="nav-item" id="profile-link-item" style="display: none;">
-                      <a class="nav-link" href="profile.html" id="profile-link">Profile</a>
-                    </li>
-                    <li class="nav-item" id="logout-link-item" style="display: none;">
-                      <a class="nav-link" href="#" id="logout-link" onclick="logoutUser()">Logout</a>
-                    </li>
-                  </ul>
-        
-                  <!-- Search Form -->
-                  <form class="d-flex mt-3 mt-lg-0" role="search" id="search-form" method="get" action="search.html">
-                    <input class="form-control me-2" type="search" placeholder="Search" id="search-input" name="query" aria-label="Search" />
-                    <select id="type" name="type" class="form-select me-2">
-                      <option value="movie" selected>Movies</option>
-                      <option value="series">Series</option>
-                      <option value="actor">Actors</option>
-                      <option value="director">Directors</option>
-                    </select>
-                    <button class="btn btn-outline-warning" type="submit">Search</button>
-                  </form>
-                </div>
-              </div>
-            </nav>
-          `;
-
-  // نقوم بإدراج الـ Navbar في أعلى الصفحة
-  document.body.insertAdjacentHTML("afterbegin", navbarHTML);
-});
 
 // دالة إخفاء الـ hero section وعناصر الـ carousel على شاشات الموبايل
 function disableMobileHeroAndCarousel() {
@@ -362,33 +314,3 @@ function disableMobileHeroAndCarousel() {
       });
   }
 }
-function getLoggedInUser() {
-  return JSON.parse(localStorage.getItem("loggedInUser"));
-}
-document.addEventListener("DOMContentLoaded", () => {
-  const loggedInUser = getLoggedInUser();
-
-  if (loggedInUser) {
-    // إخفاء روابط الدخول والتسجيل
-    document.getElementById("login-link-item").style.display = "none";
-    document.getElementById("register-link-item").style.display = "none";
-
-    // إظهار روابط الملف الشخصي والخروج
-    document.getElementById("profile-link-item").style.display = "block";
-    document.getElementById("logout-link-item").style.display = "block";
-
-    // تحديث نص الرابط الخاص بالملف الشخصي ليظهر اسم المستخدم
-    const profileLink = document.querySelector("#profile-link-item a");
-    if (profileLink) {
-      profileLink.textContent = loggedInUser.name;
-    }
-  } else {
-    // إذا لم يكن هناك مستخدم مسجل، إظهار روابط الدخول والتسجيل
-    document.getElementById("login-link-item").style.display = "block";
-    document.getElementById("register-link-item").style.display = "block";
-
-    // إخفاء روابط الملف الشخصي والخروج
-    document.getElementById("profile-link-item").style.display = "none";
-    document.getElementById("logout-link-item").style.display = "none";
-  }
-});

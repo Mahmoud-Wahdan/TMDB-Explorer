@@ -10,21 +10,38 @@ function updateUser(user) {
   localStorage.setItem("users", JSON.stringify(updatedUsers));
   localStorage.setItem("loggedInUser", JSON.stringify(user));
 }
-
 function addToFavorites(item) {
   const user = getLoggedInUser();
   if (!user) {
-    alert("Please log in to add to favorites.");
+    showNotification("Please log in to add to favorites.", "danger");
     return;
   }
+
+  // تحديث مفضلة المستخدم
   user.favorites = user.favorites || [];
   if (!user.favorites.some((fav) => fav.id === item.id)) {
-    item.type = "movie"; // تحديد نوع المحتوى
+    item.type = "movie"; // تحديد نوع المحتوى (movie أو series)
     user.favorites.push(item);
-    updateUser(user);
+    updateUser(user); // تحديث بيانات المستخدم
+
+    // تحديث المفضلة في localStorage بشكل منفصل
+    updateFavoritesStorage(item);
+
     showNotification("Added to favorites!", "success");
   } else {
     showNotification("Already in favorites!", "warning");
+  }
+}
+
+// تحديث المفضلة في localStorage
+function updateFavoritesStorage(item) {
+  const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+  if (!favorites.some((fav) => fav.id === item.id)) {
+    favorites.push(item);
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+    if (localStorage.getItem("favorites") === JSON.stringify(favorites)) {
+      console.log(favorites);
+    }
   }
 }
 // لدالة تقييم الفيلم
@@ -128,15 +145,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     .map(
       (actor) => `
     <div class="col-sm-6 col-md-4 col-lg-3  mb-3">
+    <a class="text-decoration-none text-white" href="person.html?id=${actor.id}">
       <div class="card cast shadow bg-black text-white h-100">
       <img src="https://image.tmdb.org/t/p/w500${actor.profile_path}" class="card-img-top p-2 rounded" alt="${actor.name}" />
         <div class="card-body text-center">
           <h5 class="card-title mb-3">
-            <a href="person.html?id=${actor.id}" class="text-decoration-none text-white">${actor.name}</a>
+            <p class="text-decoration-none text-white">${actor.name}</p>
           </h5>
           <p class="card-text">${actor.character}</p>
         </div>
       </div>
+      </a>
     </div>
   `
     )
@@ -183,86 +202,3 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   });
 });
-document.addEventListener("DOMContentLoaded", () => {
-  const navbarHTML = `
-    <nav class="navbar navbar-expand-lg bg-transparent navbar-dark" id="main-navbar">
-      <div class="container-fluid">
-        <!-- Logo -->
-        <a class="navbar-brand fw-bold" href="index.html" id="navbar-logo">TMDB Explorer</a>
-
-        <!-- Toggle Button -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <!-- Navigation Items -->
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto" id="navbar-links">
-            <li class="nav-item" id="login-link-item">
-              <a class="nav-link" href="login.html" id="login-link">Login</a>
-            </li>
-            <li class="nav-item" id="register-link-item">
-              <a class="nav-link" href="signup.html" id="register-link">Register</a>
-            </li>
-            <li class="nav-item" id="profile-link-item" style="display: none;">
-              <a class="nav-link" href="profile.html" id="profile-link">Profile</a>
-            </li>
-            <li class="nav-item" id="logout-link-item" style="display: none;">
-              <a class="nav-link" href="#" id="logout-link" onclick="logoutUser()">Logout</a>
-            </li>
-          </ul>
-
-          <!-- Search Form -->
-          <form class="d-flex mt-3 mt-lg-0" role="search" id="search-form" method="get" action="search.html">
-            <input class="form-control me-2" type="search" placeholder="Search" id="search-input" name="query" aria-label="Search" />
-            <select id="type" name="type" class="form-select me-2">
-              <option value="movie" selected>Movies</option>
-              <option value="series">Series</option>
-              <option value="actor">Actors</option>
-              <option value="director">Directors</option>
-            </select>
-            <button class="btn btn-outline-warning" type="submit">Search</button>
-          </form>
-        </div>
-      </div>
-    </nav>
-  `;
-
-  // نقوم بإدراج الـ Navbar في أعلى الصفحة
-  document.body.insertAdjacentHTML("afterbegin", navbarHTML);
-});
-function getLoggedInUser() {
-  return JSON.parse(localStorage.getItem("loggedInUser"));
-}
-document.addEventListener("DOMContentLoaded", () => {
-  const loggedInUser = getLoggedInUser();
-
-  if (loggedInUser) {
-    // إخفاء روابط الدخول والتسجيل
-    document.getElementById("login-link-item").style.display = "none";
-    document.getElementById("register-link-item").style.display = "none";
-
-    // إظهار روابط الملف الشخصي والخروج
-    document.getElementById("profile-link-item").style.display = "block";
-    document.getElementById("logout-link-item").style.display = "block";
-
-    // تحديث نص الرابط الخاص بالملف الشخصي ليظهر اسم المستخدم
-    const profileLink = document.querySelector("#profile-link-item a");
-    if (profileLink) {
-      profileLink.textContent = loggedInUser.name;
-    }
-  } else {
-    // إذا لم يكن هناك مستخدم مسجل، إظهار روابط الدخول والتسجيل
-    document.getElementById("login-link-item").style.display = "block";
-    document.getElementById("register-link-item").style.display = "block";
-
-    // إخفاء روابط الملف الشخصي والخروج
-    document.getElementById("profile-link-item").style.display = "none";
-    document.getElementById("logout-link-item").style.display = "none";
-  }
-});
-function logoutUser() {
-  localStorage.removeItem("loggedInUser");
-  window.location.href = "index.html";
-}

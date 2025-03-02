@@ -46,13 +46,13 @@
 .carousel-caption {
   top: 50%;
   flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
+  justify-content: center;
+  align-items: start;
   transform: translateY(-50%);
   width: 50%;
-  color: white;
   left: 40px;
-  text-align: center;
+  text-align: start;
+  text-shadow: 0px 5px 4px rgba(0, 0, 0, 0.7) !important;
 }
 .carousel-caption p,
 .carousel-caption h3 {
@@ -203,4 +203,11 @@ a:hover:not(.btn) {
 .star.hover {
   transform: perspective(1000px) translateZ(10px);
   color: #ffc107;
+}
+.container-fluid {
+  padding: 0.3rem 1rem !important;
+}
+.dropdown-item {
+  background-color: transparent !important;
+  color: white !important;
 }
