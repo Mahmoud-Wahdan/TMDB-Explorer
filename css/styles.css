@@ -3,16 +3,16 @@
 ---------------------------------------- */
 .container h1,
 .container h2 {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+  margin-top: 20px !important;
+  margin-bottom: 20px !important;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2) !important;
 }
 
 /* -------------------------------------
    Container & Navigation Group Positioning (Existing)
 ---------------------------------------- */
 .container.mt-4 {
-  position: relative;
+  position: relative !important;
 }
 .container.mt-4 .group {
   position: absolute;
@@ -46,32 +46,32 @@
 .carousel-caption {
   top: 50%;
   flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
+  justify-content: center;
+  align-items: start;
   transform: translateY(-50%);
   width: 50%;
-  color: white;
   left: 40px;
   text-align: start;
+  text-shadow: 0px 5px 4px rgba(0, 0, 0, 0.7) !important;
 }
+.carousel-caption p,
 .carousel-caption h3 {
-  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.7);
-}
-.carousel-caption p {
-  text-shadow: 0 2px 15px rgba(0, 0, 0, 0.7);
+  text-shadow: 0px 5px 4px rgba(0, 0, 0, 0.7) !important;
 }
 
 /* -------------------------------------
    Card Styling & Hover Animations
 ---------------------------------------- */
 .card {
-  border: none;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  animation: fadeIn 0.5s ease-in-out;
+  border: none !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+  animation: fadeIn 0.5s ease-in-out !important;
+  transform: perspective(1000px) rotateY(0deg) !important;
 }
-.card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+
+.card.main:hover {
+  transform: translateY(20px) !important;
+  box-shadow: 0px 0px 6px 4px rgba(255, 0, 0, 0.5) !important;
 }
 .card-img-top {
   border-radius: 30px !important;
@@ -80,14 +80,18 @@
   height: 100% !important;
 }
 
+.card.categ:hover,
+.card.cast:hover {
+  box-shadow: 0px 0px 6px 4px rgba(255, 0, 0, 0.5) !important;
+}
 /* -------------------------------------
    Button Enhancements
 ---------------------------------------- */
 .btn {
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease !important;
 }
 .btn:hover {
-  transform: scale(1.05);
+  transform: scale(1.05) !important;
 }
 
 /* -------------------------------------
@@ -95,12 +99,12 @@
 ---------------------------------------- */
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
-  transition: transform 0.3s ease;
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5)) !important;
+  transition: transform 0.3s ease 0 !important;
 }
 .carousel-control-prev-icon:hover,
 .carousel-control-next-icon:hover {
-  transform: scale(1.1);
+  transform: scale(1.1) !important;
 }
 
 /* -------------------------------------
@@ -109,9 +113,9 @@
 input:focus,
 select:focus,
 textarea:focus {
-  box-shadow: 0 0 10px rgba(255, 200, 0, 0.5);
-  border-color: #ffc107;
-  outline: none;
+  box-shadow: 0 0 10px rgba(255, 200, 0, 0.5) !important;
+  border-color: #ffc107 !important;
+  outline: none !important;
 }
 
 /* -------------------------------------
@@ -119,10 +123,10 @@ textarea:focus {
 ---------------------------------------- */
 @keyframes fadeIn {
   from {
-    opacity: 0;
+    opacity: 0 !important;
   }
   to {
-    opacity: 1;
+    opacity: 1 !important;
   }
 }
 
@@ -131,24 +135,19 @@ textarea:focus {
    - Global transition on links for smooth hover effects.
    - Navbar brand color transition.
 ---------------------------------------- */
-a {
-  transition: color 0.3s ease;
+a:not(.btn) {
+  transition: color 0.3s ease !important;
 }
-a:hover {
-  color: #ffc107;
+a:hover:not(.btn) {
+  color: #ffc107 !important;
 }
 .navbar-brand {
-  transition: color 0.3s ease;
+  transition: color 0.3s ease !important;
 }
 .navbar-brand:hover {
-  color: #ffc107;
+  color: #ffc107 !important;
 }
 
-.container h1,
-.container h2 {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
 .container.mt-4 {
   position: relative;
 }
@@ -178,33 +177,37 @@ a:hover {
     margin: 0 -585px;
   }
 }
-.carousel-caption {
-  top: 50%;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 50%;
-  color: white;
-  left: 40px;
-  text-align: start;
-}
-.carousel-caption h3 {
-  text-shadow: 0 2px 0 rgba(0, 0, 0);
-}
-.carousel-caption p {
-  text-shadow: 0 2px 15px rgba(0, 0, 0);
-}
 @media (min-width: 768px) {
   .card {
-    height: 55rem !important;
+    height: 46rem !important;
   }
 }
-
-.card-img-top {
-  border-radius: 30px !important;
+.card.cast img {
+  border-radius: 20px !important;
 }
-.card.cast {
-  height: 100% !important;
+
+.card.categ {
+  height: 55rem !important;
+}
+.card.search {
+  justify-content: center;
+  align-items: center;
+  height: 55rem !important;
+}
+.star {
+  transition: transform 0.3s ease, color 0.3s ease;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.star.hover {
+  transform: perspective(1000px) translateZ(10px);
+  color: #ffc107;
+}
+.container-fluid {
+  padding: 0.3rem 1rem !important;
+}
+.dropdown-item {
+  background-color: transparent !important;
+  color: white !important;
 }

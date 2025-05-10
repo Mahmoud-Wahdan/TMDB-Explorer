@@ -1,7 +1,10 @@
+//Api بتاع الموقع اللي هسخدمه علشان اجيب البيانات
 const apiKey = "5ea8225a17e81dc365a6c046475ae6bb";
 
 document.addEventListener("DOMContentLoaded", async function () {
   // عرض الـ Hero Slider فقط على الشاشات الكبيرة (desktop)
+  
+
   if (window.innerWidth >= 768) {
     await renderHeroSlider();
   }
@@ -30,12 +33,16 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 // دالة جلب البيانات من API
 async function fetchData(type, category) {
-  const url = `https://api.themoviedb.org/3/${type}/${category}?api_key=${apiKey}`;
-  const response = await fetch(url);
-  const data = await response.json();
-  return data.results;
+  try {
+    const url = `https://api.themoviedb.org/3/${type}/${category}?api_key=${apiKey}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    return data.results;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return [];
+  }
 }
-
 // دالة عرض الـ Hero Slider
 async function renderHeroSlider() {
   const movies = await fetchData("movie", "popular");
@@ -54,12 +61,12 @@ async function renderHeroSlider() {
         <img src="https://image.tmdb.org/t/p/original${
           movie.backdrop_path
         }" class="d-block w-100" alt="${movie.title}">
-        <div class="fw-bold text-white-emphasis carousel-caption d-none d-md-flex">
+        <div class="fw-bold text-white carousel-caption d-none d-md-flex">
           <h3>${movie.title}</h3>
           <p class="fw-normal">${movie.overview}</p>
           <a href="movie.html?id=${
             movie.id
-          }" class="btn btn-outline-danger">View Details</a>
+          }" class="btn btn-danger">View Details</a>
         </div>
       </div>
     `
@@ -79,11 +86,11 @@ async function renderHeroSlider() {
 // دالة عرض الأقسام (Popular/Top Rated)
 // في حالة الشاشات الصغيرة (mobile) يتم بناء Grid Layout مع 4 كروت وبالتعديلات المطلوبة
 // وعلى الشاشات الكبيرة (desktop) يتم عرض Carousel كما كانت سابقًا (مع 4 كروت لكل شريحة)
-  async function renderSection(type, category, containerId) {
-    const container = document.getElementById(containerId);
+async function renderSection(type, category, containerId) {
+  const container = document.getElementById(containerId);
 
-    // عرض Loading Cards مؤقتاً (عدد 4)
-    container.innerHTML = `
+  // عرض Loading Cards مؤقتاً (عدد 4)
+  container.innerHTML = `
       <div class="row">
         ${Array(4)
           .fill(
@@ -112,22 +119,22 @@ async function renderHeroSlider() {
           .join("")}
       </div>
     `;
-    // جلب البيانات من API
-    const items = await fetchData(type, category);
-    container.innerHTML = "";
+  // جلب البيانات من API
+  const items = await fetchData(type, category);
+  container.innerHTML = "";
 
-    if (window.innerWidth < 768) {
-      // شاشة الموبايل: بناء Grid Layout مع كل الكروت (تصميم أنيق)
-      let gridHtml = '<div class="row justify-content-center">';
-      items.forEach((item) => {
-        gridHtml += `
+  if (window.innerWidth < 768) {
+    // شاشة الموبايل: بناء Grid Layout مع كل الكروت (تصميم أنيق)
+    let gridHtml = '<div class="row justify-content-center">';
+    items.forEach((item) => {
+      gridHtml += `
           <div class="col-12 col-sm-6 col mb-3">
-            <div class="card h-100 shadow rounded bg-black text-white">
+            <div class="card main h-100 shadow rounded bg-black text-white">
               <img src="https://image.tmdb.org/t/p/w500${
                 item.poster_path
               }" class="card-img-top rounded p-4" alt="${
-          item.title || item.name
-        }">
+        item.title || item.name
+      }">
               <div class="card-body text-center">
                 <h5 class="card-title mb-3">${item.title || item.name}</h5>
                 <p class="card-text text-start">
@@ -139,29 +146,29 @@ async function renderHeroSlider() {
                 </p>
                 <a href="${
                   type === "movie" ? "movie.html?id=" : "series.html?id="
-                }${item.id}" class="btn btn-outline-danger">View Details</a>
+                }${item.id}" class="m-3 btn btn-outline-danger">View Details</a>
               </div>
             </div>
           </div>
         `;
-      });
-      gridHtml += "</div>";
-      container.innerHTML = gridHtml;
-    } else {
-      // على التابلت والشاشات الكبيرة: بناء Carousel
-      // تحديد عدد الكروت لكل شريحة بناءً على عرض الشاشة:
-      // إذا كانت الشاشة أقل من 992px (تابلت) -> 3 كروت، وإلا -> 4 كروت.
-      let chunkSize = window.innerWidth < 992 ? 3 : 4;
-      for (let i = 0; i < items.length; i += chunkSize) {
-        const chunk = items.slice(i, i + chunkSize);
-        container.innerHTML += `
+    });
+    gridHtml += "</div>";
+    container.innerHTML = gridHtml;
+  } else {
+    // على التابلت والشاشات الكبيرة: بناء Carousel
+    // تحديد عدد الكروت لكل شريحة بناءً على عرض الشاشة:
+    // إذا كانت الشاشة أقل من 992px (تابلت) -> 3 كروت، وإلا -> 4 كروت.
+    let chunkSize = window.innerWidth < 992 ? 3 : 4;
+    for (let i = 0; i < items.length; i += chunkSize) {
+      const chunk = items.slice(i, i + chunkSize);
+      container.innerHTML += `
           <div class="carousel-item ${i === 0 ? "active" : ""}">
             <div class="row text-center justify-content-center align-items-center">
               ${chunk
                 .map(
                   (item) => `
                     <div class="col mb-3">
-                      <div class="card rounded shadow bg-black text-white mb-3">
+                      <div class="card main rounded shadow bg-black text-white mb-3">
                         <img src="https://image.tmdb.org/t/p/w500${
                           item.poster_path
                         }" class="card-img-top rounded p-4" alt="${
@@ -186,7 +193,7 @@ async function renderHeroSlider() {
                               : "series.html?id="
                           }${
                     item.id
-                  }" class="btn btn-outline-danger">View Details</a>
+                  }" class="btn m-3 btn-outline-danger">View Details</a>
                         </div>
                       </div>
                     </div>
@@ -196,9 +203,9 @@ async function renderHeroSlider() {
             </div>
           </div>
         `;
-      }
     }
   }
+}
 
 // دالة عرض التصنيفات (Genres)
 function renderGenres() {
@@ -264,7 +271,7 @@ function displayResults(results, type) {
   }
   results.forEach((item) => {
     const card = document.createElement("div");
-    card.className = "card mb-3 col-md-3";
+    card.className = "card main mb-3 col-md-3";
     card.innerHTML = `
       <img src="https://image.tmdb.org/t/p/w500${
         item.poster_path || item.profile_path
@@ -282,9 +289,9 @@ function displayResults(results, type) {
             : type === "series"
             ? `series.html?id=${item.id}`
             : "#"
-        }" class="btn btn-primary">View Details</a>
-      </div>
-    `;
+        }" class="btn btn-primary m-3">View Details</a>
+            </div>
+            `;
     resultsContainer.appendChild(card);
   });
 }

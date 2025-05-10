@@ -10,24 +10,41 @@ function updateUser(user) {
   localStorage.setItem("users", JSON.stringify(updatedUsers));
   localStorage.setItem("loggedInUser", JSON.stringify(user));
 }
-
 function addToFavorites(item) {
   const user = getLoggedInUser();
   if (!user) {
-    alert("Please log in to add to favorites.");
+    showNotification("Please log in to add to favorites.", "danger");
     return;
   }
+
+  // تحديث مفضلة المستخدم
   user.favorites = user.favorites || [];
   if (!user.favorites.some((fav) => fav.id === item.id)) {
-    item.type = "movie"; // تحديد نوع المحتوى
+    item.type = "movie"; // تحديد نوع المحتوى (movie أو series)
     user.favorites.push(item);
-    updateUser(user);
+    updateUser(user); // تحديث بيانات المستخدم
+
+    // تحديث المفضلة في localStorage بشكل منفصل
+    updateFavoritesStorage(item);
+
     showNotification("Added to favorites!", "success");
   } else {
     showNotification("Already in favorites!", "warning");
   }
 }
 
+// تحديث المفضلة في localStorage
+function updateFavoritesStorage(item) {
+  const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+  if (!favorites.some((fav) => fav.id === item.id)) {
+    favorites.push(item);
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+    if (localStorage.getItem("favorites") === JSON.stringify(favorites)) {
+      console.log(favorites);
+    }
+  }
+}
+// لدالة تقييم الفيلم
 function rateContent(itemId, rating, title, movieData) {
   const user = getLoggedInUser();
   if (!user) {
@@ -40,8 +57,9 @@ function rateContent(itemId, rating, title, movieData) {
     existingRating.rating = rating;
     existingRating.title = title;
     existingRating.movieData = movieData;
+    existingRating.type = "movie"; // تعيين نوع الفيلم
   } else {
-    user.ratings.push({ id: itemId, rating, title, movieData });
+    user.ratings.push({ id: itemId, rating, title, movieData, type: "movie" });
   }
   updateUser(user);
   showNotification("Rating submitted!", "success");
@@ -105,10 +123,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         <p><strong>Duration:</strong> ${movie.runtime} minutes</p>
         <p><strong>Overview:</strong> ${movie.overview}</p>
         <p><strong>Rating:</strong> ${movie.vote_average}</p>
-        <div class="row mb-3">
+        <div class="row mb-3 justify-content-between align-items-center">
         <div class="col my-3">
         <span class="ms-3">Add to Favorites:</span>
-          <button id="fav-btn" class="btn btn-outline-danger">Add to Favorites</button>
+          <button id="fav-btn" class=" ms-3 btn btn-outline-danger">Add to Favorites</button>
           </div>
           <div class="col-md-6">
           <span class="ms-3">Rate:</span>
@@ -127,15 +145,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     .map(
       (actor) => `
     <div class="col-sm-6 col-md-4 col-lg-3  mb-3">
+    <a class="text-decoration-none text-white" href="person.html?id=${actor.id}">
       <div class="card cast shadow bg-black text-white h-100">
       <img src="https://image.tmdb.org/t/p/w500${actor.profile_path}" class="card-img-top p-2 rounded" alt="${actor.name}" />
         <div class="card-body text-center">
           <h5 class="card-title mb-3">
-            <a href="person.html?id=${actor.id}" class="text-decoration-none text-white">${actor.name}</a>
+            <p class="text-decoration-none text-white">${actor.name}</p>
           </h5>
           <p class="card-text">${actor.character}</p>
         </div>
       </div>
+      </a>
     </div>
   `
     )
@@ -177,6 +197,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         title: movie.title,
         overview: movie.overview,
         vote_average: movie.vote_average,
+        type: "movie",
       });
     });
   });
